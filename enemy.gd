@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var speed: float = 28.0
+@export var speed: float = 2.0
 @onready var root = get_tree().current_scene
 @onready var target = root.get_node("Char")
 

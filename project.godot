@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="fpsShooter"
+config/name="RatCityDungeonDealer"
 run/main_scene="uid://emqe4av7jhdu"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"

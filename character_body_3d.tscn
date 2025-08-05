@@ -76,6 +76,7 @@ omni_range = 1.4
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.90679, 0)
+fov = 105.0
 
 [node name="PontoDefogo" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(0.187898, 0, 0, 0, 0.187898, 0, 0, 0, 0.187898, 0.490873, -0.131182, -1.21954)
@@ -84,7 +85,7 @@ mesh = SubResource("SphereMesh_18j2g")
 skeleton = NodePath("../..")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.523, -0.259, -1.112)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.666, -0.845, -1.112)
 shaded = true
 no_depth_test = true
 sprite_frames = SubResource("SpriteFrames_ew7rt")
@@ -95,8 +96,5 @@ speed_scale = 0.7
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73676, 0)
 shape = SubResource("CapsuleShape3D_j7yu6")
-
-[node name="MeshInstance3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.974528, 0)
 
 [connection signal="animation_finished" from="Camera3D/AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
