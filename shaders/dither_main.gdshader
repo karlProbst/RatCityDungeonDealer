@@ -4,13 +4,13 @@ group_uniforms Main;
 0 = Texture: For use with Sprite2Ds, TextureRects, and Meshes
 1 = Screen: For use with ColorRect
 */
-uniform int texture_mode : hint_range(0, 1) = 0;
+uniform int texture_mode : hint_range(0, 1) = 1;
 /**
 0 = Normal: No alpha change
 1 = Alpha black: Outputs alpha as black
 2 = Alpha cut: Cuts textures as a mask. Use within CanvasGroup node.
 */
-uniform int alpha_mode : hint_range(0, 2) = 0;
+uniform int alpha_mode : hint_range(0, 2) =1;
 group_uniforms;
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, repeat_disable, filter_nearest;

@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://cohg6ir8s1smv"
+path.s3tc="res://.godot/imported/mapa1_kARL1.png-9452618b34bd9d5578e6a195d1a6652a.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "c95af8176741fadbb926d76a84c8013e"
+}
+
+[deps]
+
+source_file="res://maps/mapa1_kARL1.png"
+dest_files=["res://.godot/imported/mapa1_kARL1.png-9452618b34bd9d5578e6a195d1a6652a.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

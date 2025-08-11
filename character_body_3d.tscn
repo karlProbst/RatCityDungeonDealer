@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://kw3dpdbvgd10"]
+[gd_scene load_steps=21 format=3 uid="uid://kw3dpdbvgd10"]
 
 [ext_resource type="Script" uid="uid://c4wkjnsmey3rb" path="res://character_body_3d.gd" id="1_iwpo4"]
 [ext_resource type="Texture2D" uid="uid://d2mahrqcd4ns3" path="res://crack high alchimist/sprites/viewmodel/attack01/vm_attack01_0000.png" id="2_ew7rt"]
@@ -9,16 +9,40 @@
 [ext_resource type="Texture2D" uid="uid://ebutorjokp7u" path="res://crack high alchimist/sprites/viewmodel/attack01/vm_attack01_0002.png" id="4_nvtkd"]
 [ext_resource type="Texture2D" uid="uid://bdni7hk5pn8s8" path="res://crack high alchimist/sprites/viewmodel/idle/vm_idle0003.png" id="5_1igb4"]
 [ext_resource type="Texture2D" uid="uid://dhdwa2rmah3p4" path="res://crack high alchimist/sprites/viewmodel/attack01/vm_attack01_0003.png" id="5_gy32l"]
+[ext_resource type="AudioStream" uid="uid://ynsde1h6xg4d" path="res://Assets/1step.mp3" id="10_gy32l"]
+[ext_resource type="AudioStream" uid="uid://ddkspqe1fscib" path="res://Assets/projectile01.mp3" id="10_u3olo"]
+[ext_resource type="Script" uid="uid://w32m0ds7e11k" path="res://footsteps.gd" id="11_gy32l"]
+[ext_resource type="Texture2D" uid="uid://do2kqaemehvrj" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0000.png" id="13_m1lp5"]
+[ext_resource type="Texture2D" uid="uid://vdekrcquk1d7" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0001.png" id="14_klace"]
+[ext_resource type="Texture2D" uid="uid://dwmvigj21j6ot" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0002.png" id="15_pqkp8"]
+[ext_resource type="Texture2D" uid="uid://ct13i4atycbgd" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0003.png" id="16_w6sjo"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_18j2g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v8d2g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_m1lp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_klace")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_pqkp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_w6sjo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ew7rt"]
 animations = [{
 "frames": [{
-"duration": 0.2,
-"texture": ExtResource("2_ew7rt")
-}, {
-"duration": 0.5,
+"duration": 0.1,
 "texture": ExtResource("3_u3olo")
 }, {
 "duration": 1.2,
@@ -27,11 +51,22 @@ animations = [{
 "duration": 0.2,
 "texture": ExtResource("5_gy32l")
 }, {
+"duration": 0.5,
+"texture": ExtResource("5_gy32l")
+}, {
 "duration": 1.0,
 "texture": ExtResource("5_gy32l")
 }],
 "loop": false,
 "name": &"Attack01",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.2,
+"texture": ExtResource("2_ew7rt")
+}],
+"loop": true,
+"name": &"ChargingFire",
 "speed": 5.0
 }, {
 "frames": [{
@@ -58,6 +93,7 @@ height = 3.48207
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_iwpo4")
+speed = 23.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.2894, 0)
@@ -67,16 +103,16 @@ omni_range = 19.0
 omni_attenuation = 0.5
 omni_shadow_mode = 0
 
-[node name="MagicLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40918, 0)
-visible = false
-light_color = Color(0.0920334, 0.500433, 0.800328, 1)
-light_energy = 2.748
-omni_range = 1.4
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.90679, 0)
 fov = 105.0
+
+[node name="MagicLight" type="OmniLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71658, -0.624537, -0.784678)
+visible = false
+light_color = Color(0.356863, 0.501961, 0.8, 1)
+light_energy = 16.0
+omni_range = 1.2
 
 [node name="PontoDefogo" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(0.187898, 0, 0, 0, 0.187898, 0, 0, 0, 0.187898, 0.490873, -0.131182, -1.21954)
@@ -84,17 +120,41 @@ visible = false
 mesh = SubResource("SphereMesh_18j2g")
 skeleton = NodePath("../..")
 
+[node name="EnergyBall" type="AnimatedSprite3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64319, -0.770779, -1.20262)
+visible = false
+billboard = 1
+shaded = true
+no_depth_test = true
+sprite_frames = SubResource("SpriteFrames_v8d2g")
+autoplay = "default"
+frame_progress = 0.641384
+
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.666, -0.845, -1.112)
 shaded = true
+double_sided = false
 no_depth_test = true
 sprite_frames = SubResource("SpriteFrames_ew7rt")
 animation = &"Attack01"
 autoplay = "Idle"
+frame = 4
+frame_progress = 1.0
 speed_scale = 0.7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73676, 0)
 shape = SubResource("CapsuleShape3D_j7yu6")
+
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_gy32l")
+volume_db = -17.23
+max_db = 5.44
+script = ExtResource("11_gy32l")
+
+[node name="Shoot" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_u3olo")
+volume_db = 80.0
+max_db = 6.0
 
 [connection signal="animation_finished" from="Camera3D/AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
