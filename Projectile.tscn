@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c6blvvkx8yws4"]
+[gd_scene load_steps=27 format=3 uid="uid://c6blvvkx8yws4"]
 
 [ext_resource type="Texture2D" uid="uid://do2kqaemehvrj" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0000.png" id="1_3rnyv"]
 [ext_resource type="Script" uid="uid://t3imrtnro8rl" path="res://projectile.gd" id="1_dbogy"]
@@ -14,12 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://d07pvxnqgs8l3" path="res://Assets/splash/splash/splash0002.png" id="12_h0pko"]
 [ext_resource type="Texture2D" uid="uid://bigoejvw2efwg" path="res://Assets/splash/splash/splash0003.png" id="13_7bwtv"]
 [ext_resource type="AudioStream" uid="uid://ddkspqe1fscib" path="res://Assets/projectile01.mp3" id="14_3dtq4"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7t7m1"]
-albedo_color = Color(1, 1, 1, 0)
-
-[sub_resource type="SphereMesh" id="SphereMesh_5m0qq"]
-material = SubResource("StandardMaterial3D_7t7m1")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8apua"]
 animations = [{
@@ -120,14 +114,23 @@ _data = {
 &"lightFade": SubResource("Animation_3dtq4")
 }
 
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3dtq4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h0pko"]
+shading_mode = 0
+specular_mode = 1
+albedo_color = Color(0.805596, 0.950256, 0.998217, 1)
+albedo_texture = SubResource("NoiseTexture2D_3dtq4")
+grow = true
+grow_amount = 0.15
+
+[sub_resource type="BoxMesh" id="BoxMesh_3dtq4"]
+material = SubResource("StandardMaterial3D_h0pko")
+size = Vector3(0.12, 0.12, 0.12)
+
 [node name="Projectile" type="Area3D"]
 priority = 1
 script = ExtResource("1_dbogy")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("SphereMesh_5m0qq")
-skeleton = NodePath("")
 
 [node name="Light" type="OmniLight3D" parent="."]
 light_color = Color(0.576471, 0.568627, 1, 1)
@@ -151,7 +154,7 @@ shape = SubResource("SphereShape3D_dbogy")
 [node name="Trail" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0153491, -1.22536, 0)
 amount = 1
-lifetime = 0.28
+lifetime = 0.3
 mesh = SubResource("PlaneMesh_h0pko")
 gravity = Vector3(0, 0, 0)
 
@@ -179,6 +182,15 @@ stream = ExtResource("14_3dtq4")
 volume_db = 80.0
 max_db = 6.0
 pitch_scale = 4.0
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+amount = 12
+lifetime = 0.45
+fract_delta = false
+mesh = SubResource("BoxMesh_3dtq4")
+emission_shape = 1
+emission_sphere_radius = 0.3
+gravity = Vector3(0, 0, 0)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]

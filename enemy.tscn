@@ -1,24 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://ydacsau85yb0"]
+[gd_scene load_steps=16 format=3 uid="uid://ydacsau85yb0"]
 
 [ext_resource type="Texture2D" uid="uid://wcqvt17nlpda" path="res://icon.svg" id="1_7k104"]
 [ext_resource type="Script" uid="uid://daakv8d0bik8g" path="res://enemy.gd" id="1_epc7x"]
-[ext_resource type="Texture2D" uid="uid://d16umxqpmybbf" path="res://Assets/shadowman/walk/front/shadowman_walk_front0000.png" id="2_3yqyl"]
-[ext_resource type="Texture2D" uid="uid://dy8wh4acac1bc" path="res://Assets/shadowman/walk/front/shadowman_walk_front0001.png" id="3_wujgv"]
-[ext_resource type="Texture2D" uid="uid://d37q7tlfd4n2s" path="res://Assets/shadowman/walk/front/shadowman_walk_front0002.png" id="4_hb8ge"]
-[ext_resource type="Texture2D" uid="uid://cp8bvc8kdoa6f" path="res://Assets/shadowman/walk/front/shadowman_walk_front0003.png" id="5_e1ltt"]
-[ext_resource type="Texture2D" uid="uid://dakyw3gpdqony" path="res://Assets/shadowman/walk/front/shadowman_walk_front0004.png" id="6_dxifv"]
-[ext_resource type="Texture2D" uid="uid://dusc3111x487c" path="res://Assets/glowiedacia/shadowman_walk_front0000.png" id="7_n0g06"]
-[ext_resource type="Texture2D" uid="uid://ypjjvcbg1wd1" path="res://Assets/glowiedacia/shadowman_walk_front0001.png" id="8_ar8e5"]
-[ext_resource type="Texture2D" uid="uid://cp16c0ssp2enp" path="res://Assets/glowiedacia/shadowman_walk_front0002.png" id="9_doop2"]
-[ext_resource type="Texture2D" uid="uid://ckhdn7st70dhv" path="res://Assets/glowiedacia/shadowman_walk_front0003.png" id="10_5hcft"]
-[ext_resource type="Texture2D" uid="uid://d0ccbpbgsx47x" path="res://Assets/glowiedacia/shadowman_walk_front0004.png" id="11_nnovl"]
+[ext_resource type="SpriteFrames" uid="uid://djcatyw8q1lfd" path="res://cia_glowie_sprites.tres" id="3_e1ltt"]
 [ext_resource type="AudioStream" uid="uid://ynsde1h6xg4d" path="res://Assets/1step.mp3" id="12_ar8e5"]
-[ext_resource type="Texture2D" uid="uid://nnpdvatbaxej" path="res://Assets/glowieCIA/quadro0000_transparente.png" id="12_g2u8i"]
 [ext_resource type="Script" uid="uid://w32m0ds7e11k" path="res://footsteps.gd" id="13_doop2"]
-[ext_resource type="Texture2D" uid="uid://o20akfka37x5" path="res://Assets/glowieCIA/quadro0001_transparente.png" id="13_otto8"]
-[ext_resource type="Texture2D" uid="uid://chaolr5r16ehh" path="res://Assets/glowieCIA/quadro0002_transparente.png" id="14_8q82m"]
-[ext_resource type="Texture2D" uid="uid://068o3vrta25q" path="res://Assets/glowieCIA/quadro0003_transparente.png" id="15_epc7x"]
-[ext_resource type="Texture2D" uid="uid://d2474xj1o65hf" path="res://Assets/glowieCIA/quadro0004_transparente.png" id="16_o7rgc"]
 [ext_resource type="AudioStream" uid="uid://b5mhqjkcxcfok" path="res://Assets/glowie_sounds/glowie_damage.mp3" id="20_o7rgc"]
 [ext_resource type="AudioStream" uid="uid://cxouxal02kw5r" path="res://Assets/glowie_sounds/glow_death.mp3" id="21_kdav3"]
 
@@ -39,6 +25,21 @@ radius = 1.28697
 height = 6.46509
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_7k104"]
+
+[sub_resource type="Animation" id="Animation_epc7x"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(0, 0, 0, 0.352941)]
+}
 
 [sub_resource type="Animation" id="Animation_g2u8i"]
 resource_name = "Hurt"
@@ -70,90 +71,12 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_epc7x"]
-resource_name = "Death"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite3D:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.933333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(0, 0, 0, 0.352941)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8q82m"]
 _data = {
 &"Death": SubResource("Animation_epc7x"),
 &"Hurt": SubResource("Animation_g2u8i"),
 &"RESET": SubResource("Animation_otto8")
 }
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_pwjut"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_3yqyl")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_wujgv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_hb8ge")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_e1ltt")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_dxifv")
-}],
-"loop": true,
-"name": &"Black",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("7_n0g06")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_ar8e5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_doop2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_5hcft")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_nnovl")
-}],
-"loop": true,
-"name": &"NakedGreen",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("12_g2u8i")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_otto8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_8q82m")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_epc7x")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_o7rgc")
-}],
-"loop": true,
-"name": &"Suit",
-"speed": 5.0
-}]
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_epc7x")
@@ -164,7 +87,7 @@ target_desired_distance = 5.0
 avoidance_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.578926, 0, 0.81538, 0, 1, 0, -0.81538, 0, -0.578926, 0, 1.78042, 0)
+transform = Transform3D(0.0468123, 0.0966464, -0.0375806, -0.0853015, -0.0102861, -0.0218804, -0.0130365, 0.41435, 0.00822245, -0.274084, 2.77832, -0.683286)
 visible = false
 mesh = SubResource("CapsuleMesh_7xaro")
 
@@ -182,22 +105,69 @@ libraries = {
 }
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(5.545, 0, 0, 0, 5.545, 0, 0, 0, 5.545, 0, 3.1628, 0)
+transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, -0.00332113, 3.1628, 0.0156491)
 gi_mode = 2
-billboard = 2
 shaded = true
 texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_pwjut")
+sprite_frames = ExtResource("3_e1ltt")
+animation = &"Suit"
+autoplay = "Suit"
+frame_progress = 0.437313
+speed_scale = 0.77
+
+[node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, -0.00212844, 3.1628, 0.0676063)
+gi_mode = 2
+modulate = Color(0, 0, 0, 1)
+shaded = true
+texture_filter = 0
+sprite_frames = ExtResource("3_e1ltt")
+animation = &"Suit"
+autoplay = "Suit"
+frame_progress = 0.0977372
+speed_scale = 0.77
+
+[node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, 0.00222236, 3.1628, 0.25714)
+gi_mode = 2
+modulate = Color(0, 0, 0, 1)
+shaded = true
+texture_filter = 0
+sprite_frames = ExtResource("3_e1ltt")
+animation = &"Suit"
+autoplay = "Suit"
+frame_progress = 0.0977372
+speed_scale = 0.77
+
+[node name="AnimatedSprite3D4" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, 0.0032272, 3.1628, 0.300914)
+gi_mode = 2
+modulate = Color(0, 0, 0, 1)
+shaded = true
+texture_filter = 0
+sprite_frames = ExtResource("3_e1ltt")
+animation = &"Suit"
+autoplay = "Suit"
+frame_progress = 0.0977372
+speed_scale = 0.77
+
+[node name="AnimatedSprite3D5" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, 0.0032272, 3.1628, 0.500656)
+gi_mode = 2
+modulate = Color(0, 0, 0, 1)
+shaded = true
+texture_filter = 0
+sprite_frames = ExtResource("3_e1ltt")
 animation = &"Suit"
 autoplay = "Suit"
 frame_progress = 0.0977372
 speed_scale = 0.77
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.37848, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.270508, 6.04193, -0.271489)
 light_color = Color(0, 1, 0.164706, 1)
-light_energy = 10.285
-omni_range = 7.764
+light_energy = 6.061
+omni_range = 5.209
 
 [node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("12_ar8e5")
@@ -205,10 +175,12 @@ volume_db = 4.924
 max_db = 5.44
 pitch_scale = 0.71
 script = ExtResource("13_doop2")
+footstep_speed_scale = 0.75
 
 [node name="DamageSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("20_o7rgc")
 max_db = 0.71
+pitch_scale = 1.08
 
 [node name="DeathSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("21_kdav3")

@@ -66,7 +66,7 @@ func _process(delta):
 		$Camera3D/EnergyBall.scale.y=scale_factor
 		$Camera3D/EnergyBall.visible=true
 		$Camera3D/MagicLight.visible = true
-		$Camera3D/MagicLight.light_energy=1+(scale_factor*6)+(sin(charge_time*10)*3)
+		$Camera3D/MagicLight.light_energy=0.1+(scale_factor*7)+(sin(charge_time*10)*3)-2
 		
 		if Input.is_action_just_released("fire"):
 			sprite.animation="Attack01"

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=4 uid="uid://ciow3f0riv67d"]
+
+[ext_resource type="Texture2D" uid="uid://nnpdvatbaxej" path="res://Assets/glowieCIA/quadro0000_transparente.png" id="1_gm81w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yn2j2"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("1_gm81w")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_opkwq"]
+_surfaces = [{
+"aabb": AABB(-0.3, -0.6, -0.1, 0.6, 1.2, 0.2),
+"attribute_data": PackedByteArray("AAAAAAAAAAAAAIA/AAAAAAAAgD8AAIA/AAAAAAAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAIA/AACAPwAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAgD8AAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAAAAAAIA/AACAPwAAgD8AAIA/AACAPwAAAAAAAIA/AACAPwAAgD8AAAAAAACAPwAAgD8AAIA/AAAAAAAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD8AAAAA"),
+"format": 34359738391,
+"material": SubResource("StandardMaterial3D_yn2j2"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 36,
+"vertex_data": PackedByteArray("mpmZvpqZGb/NzMw9mpmZPpqZGb/NzMw9mpmZPpqZGT/NzMw9mpmZvpqZGb/NzMw9mpmZPpqZGT/NzMw9mpmZvpqZGT/NzMw9mpmZvpqZGb/NzMy9mpmZPpqZGT/NzMy9mpmZPpqZGb/NzMy9mpmZvpqZGb/NzMy9mpmZvpqZGT/NzMy9mpmZPpqZGT/NzMy9mpmZvpqZGb/NzMw9mpmZPpqZGb/NzMy9mpmZPpqZGb/NzMw9mpmZvpqZGb/NzMw9mpmZvpqZGb/NzMy9mpmZPpqZGb/NzMy9mpmZPpqZGb/NzMw9mpmZPpqZGT/NzMy9mpmZPpqZGT/NzMw9mpmZPpqZGb/NzMw9mpmZPpqZGb/NzMy9mpmZPpqZGT/NzMy9mpmZPpqZGT/NzMw9mpmZvpqZGT/NzMy9mpmZvpqZGT/NzMw9mpmZPpqZGT/NzMw9mpmZPpqZGT/NzMy9mpmZvpqZGT/NzMy9mpmZvpqZGT/NzMw9mpmZvpqZGb/NzMy9mpmZvpqZGb/NzMw9mpmZvpqZGT/NzMw9mpmZvpqZGT/NzMy9mpmZvpqZGb/NzMy9zMxl5pIkSJL/H/+/VFWpqjIzmRnsRCa2zMxl5pIkSJIyM5kZ7EQmtv/f/z84jqqqMrOZmcROJrbMTGZm2ra2rf9f/79UVamqMrOZmcROJrb/n/8/qiqNo8xMZmbatratzMxl5pIkSJL/X/+/VFWpqv8f/79UVamqzMxl5pIkSJIys5mZxE4mtv9f/79UVamq/x//v1RVqarMTGZm2ra2rTIzmRnsRCa2/x//v1RVqar/X/+/VFWpqsxMZmbatratMjOZGexEJrb/n/8/qiqNo//f/z84jqqqMjOZGexEJrbMTGZm2ra2rf+f/z+qKo2j/9//PziOqqoys5mZxE4mtszMZeaSJEiS/9//PziOqqr/n/8/qiqNozKzmZnETia2")
+}]
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = SubResource("ArrayMesh_opkwq")

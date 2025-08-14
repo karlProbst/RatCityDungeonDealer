@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0ccbpbgsx47x"
-path.s3tc="res://.godot/imported/shadowman_walk_front0004.png-e05d6c8efa798f87b870a90418ae8e26.s3tc.ctex"
+uid="uid://cnpikhhsya7ko"
+path="res://.godot/imported/magicpower0001.png-7b01c96bf378fca1909669c95c8fa436.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/glowiedacia/shadowman_walk_front0004.png"
-dest_files=["res://.godot/imported/shadowman_walk_front0004.png-e05d6c8efa798f87b870a90418ae8e26.s3tc.ctex"]
+source_file="res://Assets/Textures/mp/magicpower0001.png"
+dest_files=["res://.godot/imported/magicpower0001.png-7b01c96bf378fca1909669c95c8fa436.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

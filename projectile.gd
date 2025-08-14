@@ -12,7 +12,7 @@ func _ready():
 func _physics_process(delta):
 	if exploding:
 		if $Splash/OmniLight3D.light_energy>0:
-			$Splash/OmniLight3D.light_energy *= pow(0.0005, delta) 
+			$Splash/OmniLight3D.light_energy *= pow(0.000005, delta) 
 
 		else:
 			$Splash/OmniLight3D.light_energy=0

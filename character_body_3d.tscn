@@ -45,13 +45,13 @@ animations = [{
 "duration": 0.1,
 "texture": ExtResource("3_u3olo")
 }, {
-"duration": 1.2,
+"duration": 1.1,
 "texture": ExtResource("4_nvtkd")
 }, {
 "duration": 0.2,
 "texture": ExtResource("5_gy32l")
 }, {
-"duration": 0.5,
+"duration": 0.3,
 "texture": ExtResource("5_gy32l")
 }, {
 "duration": 1.0,
@@ -133,8 +133,8 @@ frame_progress = 0.641384
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.666, -0.845, -1.112)
 shaded = true
-double_sided = false
 no_depth_test = true
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_ew7rt")
 animation = &"Attack01"
 autoplay = "Idle"

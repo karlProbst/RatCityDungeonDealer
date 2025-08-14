@@ -1,0 +1,19 @@
+[gd_resource type="AnimatedTexture" load_steps=6 format=3 uid="uid://be5oacrsliha"]
+
+[ext_resource type="Texture2D" uid="uid://nnpdvatbaxej" path="res://Assets/glowieCIA/quadro0000_transparente.png" id="1_af2sr"]
+[ext_resource type="Texture2D" uid="uid://o20akfka37x5" path="res://Assets/glowieCIA/quadro0001_transparente.png" id="2_1ec0j"]
+[ext_resource type="Texture2D" uid="uid://chaolr5r16ehh" path="res://Assets/glowieCIA/quadro0002_transparente.png" id="3_vxvt8"]
+[ext_resource type="Texture2D" uid="uid://068o3vrta25q" path="res://Assets/glowieCIA/quadro0003_transparente.png" id="4_o1vcn"]
+[ext_resource type="Texture2D" uid="uid://d2474xj1o65hf" path="res://Assets/glowieCIA/quadro0004_transparente.png" id="5_yx8bm"]
+
+[resource]
+frames = 5
+frame_0/texture = ExtResource("1_af2sr")
+frame_1/texture = ExtResource("2_1ec0j")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("3_vxvt8")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("4_o1vcn")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("5_yx8bm")
+frame_4/duration = 1.0
