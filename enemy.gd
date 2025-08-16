@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 #STATES
 enum State { IDLE, PATROL, CHASE, ATTACK, DEAD }
-var state: State = State.PATROL
+@export var state: State = State.CHASE
 var patrol_points: Array[Vector3] = []
 var patrol_i : Vector3= Vector3.ZERO
 var last_patrol: Vector3 = Vector3.ZERO
@@ -11,7 +11,7 @@ var last_patrol: Vector3 = Vector3.ZERO
 var speed_default: float = speed
 @onready var root = get_tree().current_scene
 @onready var target = root.get_node("Char")
-@export var distance_radius:int= 8
+@export var distance_radius:int= 4
 @export var smooth_factor := 0.15
 @export var stuck_time := 0.2
 @onready var agent : NavigationAgent3D = $NavigationAgent3D
@@ -27,7 +27,6 @@ func _ready() -> void:
 	if p:
 		for child in p.get_children():
 			patrol_points.append(child.global_position)
-		print(patrol_points)
 func _idle_update(delta):
 	pass
 func get_closest_target_patrol()->Vector3:
@@ -68,6 +67,12 @@ func _patrol_update(delta):
 
 
 func _chase_update(delta):
+	#anim
+	if is_on_floor():
+		$AnimatedSprite3D.speed_scale=velocity.length()/13
+	else:
+		$AnimatedSprite3D.speed_scale=0
+		direction=Vector3.ZERO
 	# Define o destino do agente como a posição do player
 	if not target:
 		printerr("target or navigation agent not found!")
@@ -77,14 +82,30 @@ func _chase_update(delta):
 	if distance >distance_radius:
 		next_point = agent.get_next_path_position()
 		direction = (next_point - global_transform.origin).normalized()
-
+	else:
+		state=State.ATTACK
 func _dead_update(delta):
 	$OmniLight3D.visible=false
 	$Blink.play("Death")
 	$AnimatedSprite3D.translate(Vector3(0,-delta,0))
 	$CollisionShape3D.disabled=true
+func play_anim(anim:String)->void:
+	$AnimatedSprite3D.play(anim)
+func get_anim_frame()->int:
+	return $AnimatedSprite3D.frame
+func _attack_update(delta)->void:
+
+	#direction=Vector3.ZERO
 	
-	
+	$AnimatedSprite3D.speed_scale=1
+	if get_anim_frame()==1:
+		$AttackHitbox.monitoring = true
+		if is_on_floor():
+			velocity.y+=13
+	else:
+		$AttackHitbox.monitoring = false
+	if get_anim_frame()==2:
+		state=State.CHASE
 func _process(delta: float) -> void:
 	
 	#STATE MACHINE
@@ -95,8 +116,12 @@ func _process(delta: float) -> void:
 			_patrol_update(delta)
 		State.CHASE:
 			_chase_update(delta)
+			play_anim("Suit")
 		State.DEAD:
 			_dead_update(delta)
+		State.ATTACK:
+			play_anim("Attack")
+			_attack_update(delta)
 	#DIE
 	if health <= 0:
 		state=State.DEAD
@@ -121,7 +146,6 @@ func projectile_hit(amount):
 	speed-=(amount/2.0)
 	health -= amount
 	$DamageSound.play()
-	print("Inimigo recebeu ", amount, " de dano. Vida: ", health)
 	if health <= 0:
 		$DeathSound.play()
 		
@@ -132,3 +156,13 @@ func projectile_hit(amount):
 
 func _on_death_sound_finished() -> void:
 	queue_free()
+
+
+func _on_attack_hitbox_body_entered(body: Node3D) -> void:
+	if body.is_in_group("Player"):
+		var direction = (body.global_position - global_position).normalized()
+		var knockback_strength = 40.0
+		direction.y = 0.1
+		direction = direction.normalized() 
+		if body.has_method("apply_knockback"):
+			body.apply_knockback(direction * knockback_strength)

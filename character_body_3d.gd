@@ -7,6 +7,7 @@ extends CharacterBody3D
 
 var mouse_delta: Vector2
 #MAGIC
+var projectiles:Array[Node]=[]
 var firing=false
 var charging = false
 var charge_time = 0.0
@@ -16,8 +17,8 @@ var max_ball_scale = 2.0
 # Referências
 @onready var cam_pivot = $Camera3D
 @onready var sprite = $Camera3D/AnimatedSprite3D
-
-
+@export var hud:Node
+var knockback : Vector3=Vector3.ZERO
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -26,6 +27,10 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_delta = event.relative
 
+func remove_from_projectiles(node:Node)->void:
+	for p in projectiles:
+		if p == node:
+			projectiles.erase(p)
 func Fire(scale_factor:float,att:int, pos:Vector3,rot:Vector3)->void:
 	var projectile_scene = preload("res://Projectile.tscn")
 	var projectile = projectile_scene.instantiate()
@@ -34,8 +39,9 @@ func Fire(scale_factor:float,att:int, pos:Vector3,rot:Vector3)->void:
 	projectile.scale.x=scale_factor
 	projectile.scale.y=scale_factor
 	projectile.speed=25-(scale_factor*5)
-	get_tree().current_scene.add_child(projectile)
-
+	projectile.father=self
+	get_parent().add_child(projectile)
+	projectiles.append(projectile)
 	
 func _process(delta):
 	#footsteps
@@ -50,6 +56,29 @@ func _process(delta):
 	#JUMP
 
 	#MAGIC
+	if Input.is_action_pressed("altfire"):
+		var laser=$Camera3D/LaserRay
+		var mesh = laser.get_child(0)
+		mesh.visible=true
+		var meshchild = mesh.get_child(0)
+		var collision_point = laser.get_collision_point()
+		var collider = laser.get_collider()
+		var origin = laser.global_transform.origin
+		var dist = origin.distance_to(collision_point)
+		var laserball=$LaserBall
+		mesh.look_at(collision_point)
+		laserball.global_position=collision_point
+		laserball.visible=true
+		mesh.scale.z= dist
+		laserball.scale.x=dist/10
+		laserball.scale.y=dist/10
+
+		for p in projectiles:
+			if p is Node:
+				p.set_target(collision_point)
+	else:
+		$Camera3D/LaserRay/Mesh.visible=false
+		$LaserBall.visible=false
 	if Input.is_action_just_pressed("fire") and not charging and sprite.animation == "Idle":
 		charging = true
 		charge_time = 0.0
@@ -108,12 +137,24 @@ func _physics_process(delta):
 		if Input.is_action_pressed("jump"):
 			velocity.y =25
 
-	velocity.x = direction.x * speed * run
-	velocity.z = direction.z * speed * run
+	
+	#knockback
+	var decay_rate = 180 * delta
 
+	if knockback.length() > 2:
+		velocity=knockback
+		knockback -= knockback.normalized() * decay_rate
+	else:
+		knockback = Vector3.ZERO
+		
+	if knockback ==Vector3.ZERO:
+		velocity.x = direction.x * speed * run
+		velocity.z = direction.z * speed * run
 	move_and_slide()
 	
-
+func apply_knockback(knockback_vector: Vector3):
+	knockback= knockback_vector
+	hud.get_node("Control/Hp").remove_stat()
 func _on_animated_sprite_3d_animation_finished() -> void:
 	if sprite.animation == "Attack01":
 		sprite.animation = "Idle"	

@@ -11,8 +11,8 @@ func _ready():
 			sprites.append(cc)
 			
 	play_animations_sequentially(sprites,animation_interval)
-	new_child(10)
-	kill_child(9)
+	new_child(25)
+	kill_child(15)
 func _stop_start(sprite:Node):
 	if is_instance_valid(sprite) and sprite.has_method("play"):
 		sprite.play()
@@ -31,9 +31,14 @@ func play_animations_sequentially(sprites: Array, interval: float):
 		timer.start()
 
 func kill_child(n:int=1):
+
 	if sprites.size()==0:
 		return
 	for i in n:
+		var heartscene=preload("res://rigid_heart.tscn")
+		var heart_instance = heartscene.instantiate() as RigidBody2D
+		add_child(heart_instance)
+		heart_instance.global_position=sprites.back().get_parent().global_position
 		sprites.back().get_parent().queue_free()
 		sprites.pop_back()
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://kw3dpdbvgd10"]
+[gd_scene load_steps=25 format=3 uid="uid://kw3dpdbvgd10"]
 
 [ext_resource type="Script" uid="uid://c4wkjnsmey3rb" path="res://character_body_3d.gd" id="1_iwpo4"]
 [ext_resource type="Texture2D" uid="uid://d2mahrqcd4ns3" path="res://crack high alchimist/sprites/viewmodel/attack01/vm_attack01_0000.png" id="2_ew7rt"]
@@ -42,10 +42,10 @@ animations = [{
 [sub_resource type="SpriteFrames" id="SpriteFrames_ew7rt"]
 animations = [{
 "frames": [{
-"duration": 0.1,
+"duration": 0.2,
 "texture": ExtResource("3_u3olo")
 }, {
-"duration": 1.1,
+"duration": 1.0,
 "texture": ExtResource("4_nvtkd")
 }, {
 "duration": 0.2,
@@ -87,11 +87,42 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1lp5"]
+transparency = 1
+albedo_color = Color(1, 0.0666667, 0, 0.203922)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 2.19
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_klace"]
+material = SubResource("StandardMaterial3D_m1lp5")
+top_radius = 0.01
+bottom_radius = 0.01
+radial_segments = 4
+rings = 1
+cap_top = false
+cap_bottom = false
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j7yu6"]
 radius = 0.598514
 height = 3.48207
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klace"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0.0156863, 1)
+emission_energy_multiplier = 128.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_pqkp8"]
+material = SubResource("StandardMaterial3D_klace")
+radius = 0.2
+height = 0.4
+radial_segments = 16
+rings = 8
+
 [node name="CharacterBody3D" type="CharacterBody3D"]
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_iwpo4")
 speed = 23.0
 
@@ -131,7 +162,7 @@ autoplay = "default"
 frame_progress = 0.641384
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.666, -0.845, -1.112)
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 1.476, -0.785, -1.112)
 shaded = true
 no_depth_test = true
 texture_filter = 0
@@ -141,6 +172,21 @@ autoplay = "Idle"
 frame = 4
 frame_progress = 1.0
 speed_scale = 0.7
+
+[node name="LaserRay" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0111101, 0)
+target_position = Vector3(5, 5, -500)
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="Mesh" type="Node3D" parent="Camera3D/LaserRay"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0901866, 0)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/LaserRay/Mesh"]
+transform = Transform3D(0.0587014, 0, 0, 0, -2.81128e-08, 0.0587014, 0, -0.643146, -2.56592e-09, 0, 0, -0.582075)
+mesh = SubResource("CylinderMesh_klace")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterBody3D/LaserRay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73676, 0)
@@ -156,5 +202,10 @@ script = ExtResource("11_gy32l")
 stream = ExtResource("10_u3olo")
 volume_db = 80.0
 max_db = 6.0
+
+[node name="LaserBall" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LaserBall"]
+mesh = SubResource("SphereMesh_pqkp8")
 
 [connection signal="animation_finished" from="Camera3D/AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]

@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccbhctvld0ise"]
+
+[ext_resource type="Script" uid="uid://bm323sbf8fj31" path="res://RigidHeart.gd" id="1_8n54v"]
+[ext_resource type="Texture2D" uid="uid://dxfxit8b1if3e" path="res://Assets/hp/hp/coracao0000.png" id="2_ccjr6"]
+[ext_resource type="Texture2D" uid="uid://dwa6iai72qr3p" path="res://Assets/hp/hp/coracao0001.png" id="3_5jldu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v1vcf"]
+friction = 0.09
+bounce = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p48to"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ccjr6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5jldu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x3ysb"]
+radius = 23.0
+
+[node name="RigidHeart" type="RigidBody2D"]
+mass = 2.584
+physics_material_override = SubResource("PhysicsMaterial_v1vcf")
+center_of_mass_mode = 1
+center_of_mass = Vector2(6, -25)
+inertia = 251.14
+script = ExtResource("1_8n54v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.93845, 0.93845, 0.93845, 1)
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_p48to")
+autoplay = "default"
+speed_scale = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_x3ysb")

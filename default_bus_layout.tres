@@ -45,7 +45,7 @@ drive = 0.23
 post_gain = -12.9
 
 [resource]
-bus/0/volume_db = 6.02
+bus/0/volume_db = 0.862736
 bus/0/effect/0/effect = SubResource("AudioEffectLowShelfFilter_j3pel")
 bus/0/effect/0/enabled = false
 bus/0/effect/1/effect = SubResource("AudioEffectDistortion_j3pel")
@@ -54,13 +54,13 @@ bus/1/name = &"Music"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
-bus/1/volume_db = 0.265018
+bus/1/volume_db = 6.02
 bus/1/send = &"Master"
 bus/1/effect/0/effect = SubResource("AudioEffectPhaser_j3pel")
-bus/1/effect/0/enabled = true
+bus/1/effect/0/enabled = false
 bus/1/effect/1/effect = SubResource("AudioEffectReverb_j3pel")
 bus/1/effect/1/enabled = false
 bus/1/effect/2/effect = SubResource("AudioEffectChorus_j3pel")
-bus/1/effect/2/enabled = true
+bus/1/effect/2/enabled = false
 bus/1/effect/3/effect = SubResource("AudioEffectDistortion_g28q7")
-bus/1/effect/3/enabled = true
+bus/1/effect/3/enabled = false

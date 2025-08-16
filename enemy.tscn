@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ydacsau85yb0"]
+[gd_scene load_steps=17 format=3 uid="uid://ydacsau85yb0"]
 
 [ext_resource type="Texture2D" uid="uid://wcqvt17nlpda" path="res://icon.svg" id="1_7k104"]
 [ext_resource type="Script" uid="uid://daakv8d0bik8g" path="res://enemy.gd" id="1_epc7x"]
@@ -23,6 +23,10 @@ height = 3.98
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3yqyl"]
 radius = 1.28697
 height = 6.46509
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wujgv"]
+radius = 2.74779
+height = 5.49559
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_7k104"]
 
@@ -95,6 +99,15 @@ mesh = SubResource("CapsuleMesh_7xaro")
 transform = Transform3D(-0.578926, 0, 0.81538, 0, 1, 0, -0.81538, 0, -0.578926, 0, 3.24273, 0)
 shape = SubResource("CapsuleShape3D_3yqyl")
 
+[node name="AttackHitbox" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox"]
+transform = Transform3D(-0.578926, 0, 0.81538, 0, 1, 0, -0.81538, 0, -0.578926, 0, 3.24273, 0)
+shape = SubResource("CapsuleShape3D_wujgv")
+
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendSpace1D_7k104")
 parameters/blend_position = 0
@@ -107,60 +120,12 @@ libraries = {
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, -0.00332113, 3.1628, 0.0156491)
 gi_mode = 2
+billboard = 2
 shaded = true
 texture_filter = 0
 sprite_frames = ExtResource("3_e1ltt")
-animation = &"Suit"
+animation = &"Attack"
 autoplay = "Suit"
-frame_progress = 0.437313
-speed_scale = 0.77
-
-[node name="AnimatedSprite3D2" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, -0.00212844, 3.1628, 0.0676063)
-gi_mode = 2
-modulate = Color(0, 0, 0, 1)
-shaded = true
-texture_filter = 0
-sprite_frames = ExtResource("3_e1ltt")
-animation = &"Suit"
-autoplay = "Suit"
-frame_progress = 0.0977372
-speed_scale = 0.77
-
-[node name="AnimatedSprite3D3" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, 0.00222236, 3.1628, 0.25714)
-gi_mode = 2
-modulate = Color(0, 0, 0, 1)
-shaded = true
-texture_filter = 0
-sprite_frames = ExtResource("3_e1ltt")
-animation = &"Suit"
-autoplay = "Suit"
-frame_progress = 0.0977372
-speed_scale = 0.77
-
-[node name="AnimatedSprite3D4" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, 0.0032272, 3.1628, 0.300914)
-gi_mode = 2
-modulate = Color(0, 0, 0, 1)
-shaded = true
-texture_filter = 0
-sprite_frames = ExtResource("3_e1ltt")
-animation = &"Suit"
-autoplay = "Suit"
-frame_progress = 0.0977372
-speed_scale = 0.77
-
-[node name="AnimatedSprite3D5" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, 0.0032272, 3.1628, 0.500656)
-gi_mode = 2
-modulate = Color(0, 0, 0, 1)
-shaded = true
-texture_filter = 0
-sprite_frames = ExtResource("3_e1ltt")
-animation = &"Suit"
-autoplay = "Suit"
-frame_progress = 0.0977372
 speed_scale = 0.77
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
@@ -171,8 +136,8 @@ omni_range = 5.209
 
 [node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("12_ar8e5")
-volume_db = 4.924
-max_db = 5.44
+volume_db = -8.511
+max_db = -0.514
 pitch_scale = 0.71
 script = ExtResource("13_doop2")
 footstep_speed_scale = 0.75
@@ -187,4 +152,5 @@ stream = ExtResource("21_kdav3")
 volume_db = 12.214
 max_db = 1.626
 
+[connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
 [connection signal="finished" from="DeathSound" to="." method="_on_death_sound_finished"]

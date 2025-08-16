@@ -1,15 +1,12 @@
-[gd_resource type="SpriteFrames" load_steps=16 format=3 uid="uid://djcatyw8q1lfd"]
+[gd_resource type="SpriteFrames" load_steps=13 format=3 uid="uid://djcatyw8q1lfd"]
 
 [ext_resource type="Texture2D" uid="uid://d16umxqpmybbf" path="res://Assets/shadowman/walk/front/shadowman_walk_front0000.png" id="1_mhuoi"]
+[ext_resource type="Texture2D" uid="uid://dp6kjnxwwp6qr" path="res://Assets/glowieCIA/attackglowietemporario/quadro0001.png" id="1_vjbla"]
+[ext_resource type="Texture2D" uid="uid://hmaklsik7ssu" path="res://Assets/glowieCIA/attackglowietemporario/quadro0000.png" id="2_lyk6w"]
 [ext_resource type="Texture2D" uid="uid://dy8wh4acac1bc" path="res://Assets/shadowman/walk/front/shadowman_walk_front0001.png" id="2_vk7yi"]
 [ext_resource type="Texture2D" uid="uid://d37q7tlfd4n2s" path="res://Assets/shadowman/walk/front/shadowman_walk_front0002.png" id="3_44vq2"]
 [ext_resource type="Texture2D" uid="uid://cp8bvc8kdoa6f" path="res://Assets/shadowman/walk/front/shadowman_walk_front0003.png" id="4_jl3gk"]
 [ext_resource type="Texture2D" uid="uid://dakyw3gpdqony" path="res://Assets/shadowman/walk/front/shadowman_walk_front0004.png" id="5_ievm0"]
-[ext_resource type="Texture2D" uid="uid://dusc3111x487c" path="res://Assets/glowiedacia/shadowman_walk_front0000.png" id="6_3isd0"]
-[ext_resource type="Texture2D" uid="uid://ypjjvcbg1wd1" path="res://Assets/glowiedacia/shadowman_walk_front0001.png" id="7_sh0l6"]
-[ext_resource type="Texture2D" uid="uid://cp16c0ssp2enp" path="res://Assets/glowiedacia/shadowman_walk_front0002.png" id="8_gow63"]
-[ext_resource type="Texture2D" uid="uid://ckhdn7st70dhv" path="res://Assets/glowiedacia/shadowman_walk_front0003.png" id="9_kt8c8"]
-[ext_resource type="Texture2D" uid="uid://d0ccbpbgsx47x" path="res://Assets/glowiedacia/shadowman_walk_front0004.png" id="10_wcsuc"]
 [ext_resource type="Texture2D" uid="uid://nnpdvatbaxej" path="res://Assets/glowieCIA/quadro0000_transparente.png" id="11_nfhxi"]
 [ext_resource type="Texture2D" uid="uid://o20akfka37x5" path="res://Assets/glowieCIA/quadro0001_transparente.png" id="12_iamy4"]
 [ext_resource type="Texture2D" uid="uid://chaolr5r16ehh" path="res://Assets/glowieCIA/quadro0002_transparente.png" id="13_2kw8c"]
@@ -18,6 +15,20 @@
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 4.8,
+"texture": ExtResource("1_vjbla")
+}, {
+"duration": 0.5,
+"texture": ExtResource("2_lyk6w")
+}, {
+"duration": 0.7,
+"texture": ExtResource("2_lyk6w")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_mhuoi")
@@ -40,19 +51,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_3isd0")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_sh0l6")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_gow63")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_kt8c8")
+"texture": null
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_wcsuc")
+"texture": null
 }],
 "loop": true,
 "name": &"NakedGreen",
