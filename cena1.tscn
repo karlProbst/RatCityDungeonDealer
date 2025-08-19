@@ -16,12 +16,13 @@
 [ext_resource type="Texture2D" uid="uid://cn5fciaxumlxd" path="res://Assets/Textures/shader/bayer2tile16.png" id="14_q1bsc"]
 [ext_resource type="Texture2D" uid="uid://dwnaiguo4068" path="res://Assets/Textures/crosshair.png" id="15_4nnk3"]
 [ext_resource type="Script" uid="uid://dq1p6b17ys43p" path="res://HUDStatsControl.gd" id="16_gpx0j"]
-[ext_resource type="Script" uid="uid://dwjawbb3owcdt" path="res://SpritesDesAnimation.gd" id="16_r00bp"]
 [ext_resource type="Texture2D" uid="uid://dxfxit8b1if3e" path="res://Assets/hp/hp/coracao0000.png" id="16_xuiwo"]
 [ext_resource type="Texture2D" uid="uid://dwa6iai72qr3p" path="res://Assets/hp/hp/coracao0001.png" id="17_basfu"]
+[ext_resource type="PackedScene" uid="uid://ccbhctvld0ise" path="res://rigid_heart.tscn" id="17_gpx0j"]
 [ext_resource type="Texture2D" uid="uid://dhql4a188piox" path="res://Assets/Textures/mp/magicpower0000.png" id="18_evgly"]
 [ext_resource type="Texture2D" uid="uid://cnpikhhsya7ko" path="res://Assets/Textures/mp/magicpower0001.png" id="19_r00bp"]
 [ext_resource type="Texture2D" uid="uid://co4oiobllopn3" path="res://Assets/Textures/mp/magicpower0002.png" id="20_gpx0j"]
+[ext_resource type="PackedScene" uid="uid://bbt1ssdhhk77w" path="res://starScene.tscn" id="20_v1vcf"]
 [ext_resource type="Texture2D" uid="uid://bybbkctqvkfm6" path="res://Assets/Textures/mp/magicpower0003.png" id="21_v1vcf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6fgup"]
@@ -3617,9 +3618,6 @@ data = PackedVector3Array(-38.5504, 55.3028, -73.4932, -38.5504, 63.2032, -89.49
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yje1n"]
 data = PackedVector3Array(-3.005, 0, 3.005, 3.005, 0, -3.005, 3.005, 0, 3.005, -3.005, 0, 3.005, -3.005, 0, -3.005, 3.005, 0, -3.005)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_buv4j"]
-data = PackedVector3Array(-3.005, 0, 3.005, 3.005, 0, -3.005, 3.005, 0, 3.005, -3.005, 0, 3.005, -3.005, 0, -3.005, 3.005, 0, -3.005)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6fgup"]
 shader = ExtResource("13_nltym")
 shader_parameter/u_dither_tex = ExtResource("14_q1bsc")
@@ -3693,6 +3691,7 @@ sky_mode = 2
 
 [node name="Enemy" parent="." instance=ExtResource("3_smt6k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.382, 0.460201, -4.05115)
+state = 1
 
 [node name="Patrol" type="Node3D" parent="Enemy"]
 
@@ -3705,8 +3704,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7798, 0, 5.24905)
 [node name="Marker3D3" type="Marker3D" parent="Enemy/Patrol"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7798, 0, -52.6451)
 
+[node name="Marker3D4" type="Marker3D" parent="Enemy/Patrol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3764, 0, -52.6451)
+
+[node name="Marker3D5" type="Marker3D" parent="Enemy/Patrol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.3764, 0, -76.6245)
+
+[node name="Marker3D6" type="Marker3D" parent="Enemy/Patrol"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.32326, 0, -76.6245)
+
 [node name="Enemy2" parent="." instance=ExtResource("3_smt6k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.382, 0.460201, -29.9139)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.382, 61.885, 14.4603)
 
 [node name="Patrol" type="Node3D" parent="Enemy2"]
 
@@ -4081,15 +4089,12 @@ shape = SubResource("ConcavePolygonShape3D_6ww48")
 
 [node name="CollisionShape3D31" type="CollisionShape3D" parent="Map"]
 transform = Transform3D(0, 0, 1.06587, 0, 1, 0, -1, 0, 0, 318.616, 58.5152, 78.2435)
+visible = false
 shape = SubResource("ConcavePolygonShape3D_j3615")
 
 [node name="CollisionShape3D32" type="CollisionShape3D" parent="Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.2115, 210.631, 148.299)
 shape = SubResource("ConcavePolygonShape3D_yje1n")
-
-[node name="CollisionShape3D33" type="CollisionShape3D" parent="Map"]
-transform = Transform3D(14.238, 0, 0, 0, 0, -14.238, 0, 14.238, 0, 189.097, 18.9339, -42.6357)
-shape = SubResource("ConcavePolygonShape3D_buv4j")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -4141,6 +4146,7 @@ offset_bottom = -100.0
 grow_vertical = 0
 theme_override_constants/separation = 50
 script = ExtResource("16_gpx0j")
+rigid_sprite_scene = ExtResource("17_gpx0j")
 animation_interval = 0.25
 
 [node name="Panel" type="Panel" parent="HUD/Control/Hp"]
@@ -4163,11 +4169,10 @@ grow_vertical = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.801263, 4.23551e-06, 2.88785e-07, 1)
-theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/normal_font = SubResource("FontVariation_gpx0j")
 theme_override_font_sizes/mono_font_size = 1
 theme_override_font_sizes/normal_font_size = 36
-text = "5"
+text = "10"
 scroll_active = false
 shortcut_keys_enabled = false
 horizontal_alignment = 1
@@ -4195,16 +4200,49 @@ anchor_bottom = 1.0
 offset_left = 50.0
 offset_top = -50.0
 offset_right = -830.0
-offset_bottom = -12.0
+offset_bottom = -50.0
 grow_vertical = 0
-theme_override_constants/separation = 30
-script = ExtResource("16_r00bp")
-animation_interval = 0.6
+theme_override_constants/separation = 50
+script = ExtResource("16_gpx0j")
+rigid_sprite_scene = ExtResource("20_v1vcf")
+stat_n = 10
+
+[node name="Panel" type="Panel" parent="HUD/Control/Mp"]
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="HUD/Control/Mp/Panel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.0235294, 0.282353, 1, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_gpx0j")
+theme_override_font_sizes/mono_font_size = 1
+theme_override_font_sizes/normal_font_size = 36
+text = "5"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+drag_and_drop_selection_enabled = false
+text_direction = 1
 
 [node name="Star" type="Panel" parent="HUD/Control/Mp"]
 layout_mode = 2
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="HUD/Control/Mp/Star"]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_jr205")
 autoplay = "default"
 frame_progress = 0.723852

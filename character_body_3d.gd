@@ -31,6 +31,7 @@ func remove_from_projectiles(node:Node)->void:
 	for p in projectiles:
 		if p == node:
 			projectiles.erase(p)
+			hud.get_node("Control/Mp").add_stat()
 func Fire(scale_factor:float,att:int, pos:Vector3,rot:Vector3)->void:
 	var projectile_scene = preload("res://Projectile.tscn")
 	var projectile = projectile_scene.instantiate()
@@ -42,6 +43,9 @@ func Fire(scale_factor:float,att:int, pos:Vector3,rot:Vector3)->void:
 	projectile.father=self
 	get_parent().add_child(projectile)
 	projectiles.append(projectile)
+	hud.get_node("Control/Mp").remove_stat()
+	
+
 	
 func _process(delta):
 	#footsteps
@@ -74,17 +78,17 @@ func _process(delta):
 		laserball.scale.y=dist/10
 
 		for p in projectiles:
-			if p is Node:
-				p.set_target(collision_point)
+			if p:
+				if p is Node:
+					p.set_target(collision_point)
 	else:
 		$Camera3D/LaserRay/Mesh.visible=false
 		$LaserBall.visible=false
 	if Input.is_action_just_pressed("fire") and not charging and sprite.animation == "Idle":
-		charging = true
-		charge_time = 0.0
-		
-		
-		sprite.animation = "ChargingFire"
+		if hud.get_node("Control/Mp").get_stat()>0:
+			charging = true
+			charge_time = 0.0
+			sprite.animation = "ChargingFire"
 	if sprite.animation == "Attack01" and sprite.frame==4:
 		sprite.animation = "Idle"
 	if charging:

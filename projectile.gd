@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var speed: float = 30.0
-@export var life_time: float = 30.0  # tempo para desaparecer
+@export var life_time: float = 100.0  # tempo para desaparecer
 @export var damage:int=25
 var life_timer: float = 0.0
 var exploding=false
@@ -12,6 +12,9 @@ func _ready():
 func set_target(target)->void:
 	self.look_at(target)
 func _physics_process(delta):
+	var dist = global_position.distance_to(father.global_position)
+	if dist>80:
+		Explode()
 	if exploding:
 		if $Splash/OmniLight3D.light_energy>0:
 			$Splash/OmniLight3D.light_energy *= pow(0.000005, delta) 
@@ -23,7 +26,7 @@ func _physics_process(delta):
 	# Timer para destruir depois de um tempo
 	life_timer += delta
 	if life_timer >= life_time:
-		queue_free()
+		Explode()
 
 func _on_body_entered(body):
 	

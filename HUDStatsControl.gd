@@ -1,6 +1,6 @@
 extends Node
 
-@export var rigid_sprite_scene:PackedScene=preload("res://rigid_heart.tscn")
+@export var rigid_sprite_scene:PackedScene
 @export var animation_interval: float = 0.5
 var timers:Array = []
 var sprite:Node
@@ -13,29 +13,22 @@ func _ready():
 			sprite=cc
 		if cc is RichTextLabel:
 			text=cc
-	print(text)
-	print(sprite)
 	if (sprite == null) or (text == null):
 		printerr("HUD TEXT or SPRITE NOT FOUND!")
 		return
-	add_stat(25)
-	remove_stat(15)
 func _stop_start(sprite:Node):
 	if is_instance_valid(sprite) and sprite.has_method("play"):
 		sprite.play()
-
+func get_stat()->int:
+	return stat_n
 func change_text(number:int)->String:
 	var text_n:=int(text.text)
-	if number>0:
-		if text_n<99:
-			text_n+=number
-		if text_n>99:
-			text_n=99
-	elif number<0:
-		if text_n>0:
-			text_n+=number
-		if text_n<0:
-			text_n=0
+
+	text_n+=number
+	if text_n>99:
+		text_n=99
+	if text_n<0:
+		text_n=0
 	stat_n=text_n
 	return str(text_n)
 func add_stat(n:int=1):
@@ -44,6 +37,9 @@ func remove_stat(n:int=1):
 	for i in n:
 		if stat_n>0:
 			text.text=change_text(-1)
-			var rigid_instance = rigid_sprite_scene.instantiate() as RigidBody2D
-			add_child(rigid_instance)
-			rigid_instance.global_position=sprite.global_position
+			if rigid_sprite_scene:
+				var rigid_instance = rigid_sprite_scene.instantiate()
+				add_child(rigid_instance)
+				rigid_instance.global_position=sprite.global_position
+				if rigid_instance is AnimatedSprite2D:
+					rigid_instance.frame=sprite.frame
