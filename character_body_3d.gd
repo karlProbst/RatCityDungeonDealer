@@ -25,6 +25,7 @@ var lowpasseffect:AudioEffect
 @onready var lasermesh = get_node_or_null("Camera3D/Laserray/Mesh")
 @onready var laserball = get_node_or_null("LaserBall")
 @onready var root = get_tree().current_scene
+var activemagic:= "bluefollow"
 func _ready():
 	$Camera3D.fov=105
 	var bus := AudioServer.get_bus_index("Master")
@@ -98,67 +99,64 @@ func _process(delta):
 	#JUMP
 
 	#MAGIC
-	
-	if Input.is_action_pressed("altfire"):	
-		var collision_point: Vector3
-		var origin = laser.global_transform.origin
-		
-		if laser.is_colliding():
-			collision_point = laser.get_collision_point()
-			laserball.global_position = collision_point
-			laserball.visible = true
-		else:
-			var max_dist = 1000.0
-			var dir = (-cam_pivot.global_transform.basis.z + cam_pivot.global_transform.basis.y * -0.1).normalized()
-			
-			collision_point = origin + dir * max_dist
-			laserball.visible = false  # hide ball if no collision
+	match activemagic:
+		"flamethrower":
+			pass
+		"bluefollow":
+			if Input.is_action_pressed("altfire"):	
+				var collision_point: Vector3
+				var origin = laser.global_transform.origin
+				
+				if laser.is_colliding():
+					collision_point = laser.get_collision_point()
+					laserball.global_position = collision_point
+					laserball.visible = true
+				else:
+					var max_dist = 1000.0
+					var dir = (-cam_pivot.global_transform.basis.z + cam_pivot.global_transform.basis.y * -0.1).normalized()				
+					collision_point = origin + dir * max_dist
+					laserball.visible = false  # hide ball if no collision
+				var dist = origin.distance_to(collision_point)
+				lasermesh.visible = true
+				lasermesh.look_at(collision_point)
+				lasermesh.scale.z = dist
+				# Scale laser ball if visible
+				if laserball.visible:
+					laserball.scale = Vector3.ONE * (dist / 10.0)
 
-		var dist = origin.distance_to(collision_point)
-
-
-		lasermesh.visible = true
-		lasermesh.look_at(collision_point)
-		lasermesh.scale.z = dist
-
-		# Scale laser ball if visible
-		if laserball.visible:
-			laserball.scale = Vector3.ONE * (dist / 10.0)
-
-		for p in projectiles:
-			if p:
-				if p is Node:
-					if laserball:
-						p.look_at(laserball.global_position)
-	else:
-		pass
-		lasermesh.visible=false
-		laserball.visible=false
-	if Input.is_action_just_pressed("fire") and not charging and sprite.animation == "Idle":
-		if hud.get_node("Control/Mp").get_stat()>0:
-			charging = true
-			charge_time = 0.0
-			sprite.animation = "ChargingFire"
-	if sprite.animation == "Attack01" and sprite.frame==4:
-		sprite.animation = "Idle"
-	if charging:
-		charge_time += delta
-		var scale_factor = lerp(min_ball_scale, max_ball_scale, min(charge_time / max_charge, 1))
-		$Camera3D/EnergyBall.scale.x=scale_factor
-		$Camera3D/EnergyBall.scale.y=scale_factor
-		$Camera3D/EnergyBall.visible=true
-		$Camera3D/MagicLight.visible = true
-		$Camera3D/MagicLight.light_energy=0.1+(scale_factor*7)+(sin(charge_time*10)*3)-2
-		
-		if Input.is_action_just_released("fire"):
-			sprite.animation="Attack01"
-			$Shoot.play()
-			var pontodefogopos = $Camera3D/PontoDefogo.global_position
-			Fire(scale_factor, 1,pontodefogopos,Vector3(cam_pivot.rotation.x,self.rotation.y,0))
-			charging = false
-			charge_time = 0.0
-			$Camera3D/MagicLight.visible = false
-			$Camera3D/EnergyBall.visible=false	
+				for p in projectiles:
+					if p:
+						if p is Node:
+							if laserball:
+								p.look_at(laserball.global_position)
+			else:
+				pass
+				lasermesh.visible=false
+				laserball.visible=false
+			if Input.is_action_just_pressed("fire") and not charging and sprite.animation == "Idle":
+				if hud.get_node("Control/Mp").get_stat()>0:
+					charging = true
+					charge_time = 0.0
+					sprite.animation = "ChargingFire"
+			if sprite.animation == "Attack01" and sprite.frame==4:
+				sprite.animation = "Idle"
+			if charging:
+				charge_time += delta
+				var scale_factor = lerp(min_ball_scale, max_ball_scale, min(charge_time / max_charge, 1))
+				$Camera3D/EnergyBall.scale.x=scale_factor
+				$Camera3D/EnergyBall.scale.y=scale_factor
+				$Camera3D/EnergyBall.visible=true
+				$Camera3D/MagicLight.visible = true
+				$Camera3D/MagicLight.light_energy=0.1+(scale_factor*7)+(sin(charge_time*10)*3)-2
+				if Input.is_action_just_released("fire"):
+					sprite.animation="Attack01"
+					$Shoot.play()
+					var pontodefogopos = $Camera3D/PontoDefogo.global_position
+					Fire(scale_factor, 1,pontodefogopos,Vector3(cam_pivot.rotation.x,self.rotation.y,0))
+					charging = false
+					charge_time = 0.0
+					$Camera3D/MagicLight.visible = false
+					$Camera3D/EnergyBall.visible=false	
 
 	if is_on_floor():
 		if Input.is_action_pressed("run"):

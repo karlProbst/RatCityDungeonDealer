@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://dt5ilulbs7bvy"]
+
+[ext_resource type="Texture2D" uid="uid://co4oiobllopn3" path="res://Assets/Textures/mp/magicpower0002.png" id="1_iadjy"]
+[ext_resource type="Script" uid="uid://cqrig73xab7oy" path="res://scripts/ItemProperties.gd" id="2_752fq"]
+
+[resource]
+script = ExtResource("2_752fq")
+id = 6
+item_name = "Magic BlueFollow"
+icon = ExtResource("1_iadjy")
+metadata/_custom_type_script = "uid://cqrig73xab7oy"
