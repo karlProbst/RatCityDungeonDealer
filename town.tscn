@@ -1,0 +1,477 @@
+[gd_scene load_steps=36 format=3 uid="uid://c40jclh7kic4o"]
+
+[ext_resource type="Shader" uid="uid://dkv6habro1xpm" path="res://ditheretc3.gdshader" id="4_fk3m5"]
+[ext_resource type="Texture2D" uid="uid://cn5fciaxumlxd" path="res://Assets/Textures/shader/bayer2tile16.png" id="5_5ie80"]
+[ext_resource type="Texture2D" uid="uid://dwnaiguo4068" path="res://Assets/Textures/crosshair.png" id="6_d0mta"]
+[ext_resource type="Texture2D" uid="uid://dxfxit8b1if3e" path="res://Assets/hp/hp/coracao0000.png" id="10_436en"]
+[ext_resource type="Texture2D" uid="uid://dwa6iai72qr3p" path="res://Assets/hp/hp/coracao0001.png" id="11_w8y3r"]
+[ext_resource type="Texture2D" uid="uid://dhql4a188piox" path="res://Assets/Textures/mp/magicpower0000.png" id="13_nlhd7"]
+[ext_resource type="Texture2D" uid="uid://cnpikhhsya7ko" path="res://Assets/Textures/mp/magicpower0001.png" id="14_jrnfs"]
+[ext_resource type="Texture2D" uid="uid://co4oiobllopn3" path="res://Assets/Textures/mp/magicpower0002.png" id="15_apfyi"]
+[ext_resource type="Texture2D" uid="uid://bybbkctqvkfm6" path="res://Assets/Textures/mp/magicpower0003.png" id="16_4upq0"]
+[ext_resource type="Theme" uid="uid://cuwxv3dancw6" path="res://rat_theme.tres" id="17_u4mci"]
+[ext_resource type="PackedScene" uid="uid://csevp3ne8nhrm" path="res://Slot.tscn" id="18_l2ab7"]
+[ext_resource type="Script" uid="uid://cqrig73xab7oy" path="res://scripts/ItemProperties.gd" id="19_afapr"]
+[ext_resource type="Script" uid="uid://h4tumndm2lre" path="res://inventory_controller.gd" id="20_xyui6"]
+[ext_resource type="Texture2D" uid="uid://d3hviitqqdebg" path="res://Assets/gibs/skullblack.png" id="21_omvvs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n8fuq"]
+shader = ExtResource("4_fk3m5")
+shader_parameter/u_dither_tex = ExtResource("5_5ie80")
+shader_parameter/u_color_steps = 16
+shader_parameter/u_pixel_size = 1
+shader_parameter/u_dither_intensity = 0.1
+shader_parameter/white_tint = 0.0
+shader_parameter/u_noise = 0.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jy274"]
+load_path = "res://.godot/imported/crosshair.png-c5fc4b061aab0e53d43a2e64ec40573a.ctex"
+
+[sub_resource type="SystemFont" id="SystemFont_r00bp"]
+
+[sub_resource type="FontVariation" id="FontVariation_0q1bw"]
+base_font = SubResource("SystemFont_r00bp")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cf0ib"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_436en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_w8y3r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xxege"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_nlhd7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_jrnfs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_apfyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_4upq0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="FontVariation" id="FontVariation_11avq"]
+variation_embolden = -1.0
+spacing_glyph = 10
+spacing_space = 10
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ujvoh"]
+load_path = "res://.godot/imported/skullblack.png-591fbe634260f6947c5ddb72bc5ad69e.ctex"
+
+[sub_resource type="Resource" id="Resource_h7ev4"]
+script = ExtResource("19_afapr")
+id = 1
+item_name = "skull"
+icon = SubResource("CompressedTexture2D_ujvoh")
+stackable = true
+stack = 1
+MAX_STACK = 3
+price = 5.0
+metadata/_custom_type_script = "uid://cqrig73xab7oy"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tilf0"]
+load_path = "res://.godot/imported/flame_idle.png-1851852802718edef256eea698c9caed.s3tc.ctex"
+
+[sub_resource type="Resource" id="Resource_7nu3m"]
+script = ExtResource("19_afapr")
+id = 2
+icon = SubResource("CompressedTexture2D_tilf0")
+metadata/_custom_type_script = "uid://cqrig73xab7oy"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rrglq"]
+load_path = "res://.godot/imported/blood_drop.png-44b48d34b82cb97f357194b92cb2cb5e.s3tc.ctex"
+
+[sub_resource type="Resource" id="Resource_ccuaf"]
+script = ExtResource("19_afapr")
+id = 4
+icon = SubResource("CompressedTexture2D_rrglq")
+metadata/_custom_type_script = "uid://cqrig73xab7oy"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ondp8"]
+load_path = "res://.godot/imported/bone.png-0b381e2d2cadbcda8beab0cc6c0a5bce.s3tc.ctex"
+
+[sub_resource type="Resource" id="Resource_6ccrb"]
+script = ExtResource("19_afapr")
+id = 5
+icon = SubResource("CompressedTexture2D_ondp8")
+metadata/_custom_type_script = "uid://cqrig73xab7oy"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c54sc"]
+load_path = "res://.godot/imported/skullblack.png-591fbe634260f6947c5ddb72bc5ad69e.ctex"
+
+[sub_resource type="Resource" id="Resource_chumf"]
+script = ExtResource("19_afapr")
+id = 1
+item_name = "skull"
+icon = SubResource("CompressedTexture2D_c54sc")
+stackable = true
+stack = 1
+MAX_STACK = 3
+price = 5.0
+metadata/_custom_type_script = "uid://cqrig73xab7oy"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yer78"]
+load_path = "res://.godot/imported/skullblack.png-591fbe634260f6947c5ddb72bc5ad69e.ctex"
+
+[sub_resource type="Resource" id="Resource_tyo33"]
+script = ExtResource("19_afapr")
+id = 1
+item_name = "skull"
+icon = SubResource("CompressedTexture2D_yer78")
+stackable = true
+stack = 1
+MAX_STACK = 3
+price = 5.0
+metadata/_custom_type_script = "uid://cqrig73xab7oy"
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_xu6hc"]
+thickness = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy6lf"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ViewportRect" type="ColorRect" parent="HUD"]
+material = SubResource("ShaderMaterial_n8fuq")
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Control" type="Control" parent="HUD"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Sprite2D" parent="HUD/Control/AspectRatioContainer"]
+texture_filter = 1
+texture_repeat = 1
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("6_d0mta")
+
+[node name="HitMarkerContainer" type="AspectRatioContainer" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Node2D" type="Node2D" parent="HUD/Control/HitMarkerContainer"]
+scale = Vector2(4, 4)
+
+[node name="Hit" type="Sprite2D" parent="HUD/Control/HitMarkerContainer/Node2D"]
+self_modulate = Color(1, 0, 0, 1)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(0, 36.25)
+scale = Vector2(0.338611, 12.58)
+texture = SubResource("CompressedTexture2D_jy274")
+region_enabled = true
+region_rect = Rect2(5.655, 15.64, 9.44, 5.48)
+
+[node name="Hit2" type="Sprite2D" parent="HUD/Control/HitMarkerContainer/Node2D"]
+self_modulate = Color(1, 0, 0, 1)
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(-0.255, 74.25)
+scale = Vector2(2.322, 2.615)
+texture = SubResource("CompressedTexture2D_jy274")
+region_enabled = true
+region_rect = Rect2(5.655, 15.64, 9.44, 5.48)
+
+[node name="Hp" type="HBoxContainer" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_bottom = -100.0
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="Panel" type="Panel" parent="HUD/Control/Hp"]
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="HUD/Control/Hp/Panel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.801263, 4.23551e-06, 2.88785e-07, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_0q1bw")
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/mono_font_size = 1
+text = "3"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+drag_and_drop_selection_enabled = false
+text_direction = 1
+
+[node name="Heart" type="Panel" parent="HUD/Control/Hp"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD/Control/Hp/Heart"]
+texture_filter = 1
+scale = Vector2(1.75, 1.75)
+sprite_frames = SubResource("SpriteFrames_cf0ib")
+autoplay = "default"
+speed_scale = 0.6
+
+[node name="Mp" type="HBoxContainer" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -50.0
+offset_right = -830.0
+offset_bottom = -50.0
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="Panel" type="Panel" parent="HUD/Control/Mp"]
+layout_mode = 2
+
+[node name="Text" type="RichTextLabel" parent="HUD/Control/Mp/Panel"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.0235294, 0.282353, 1, 1)
+theme_override_fonts/normal_font = SubResource("FontVariation_0q1bw")
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/mono_font_size = 1
+text = "5"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+drag_and_drop_selection_enabled = false
+text_direction = 1
+
+[node name="Star" type="Panel" parent="HUD/Control/Mp"]
+layout_mode = 2
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="HUD/Control/Mp/Star"]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_xxege")
+autoplay = "default"
+
+[node name="Menu" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="ColorRect" type="ColorRect" parent="HUD/Menu"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.286275, 0.286275, 0.286275, 0.556863)
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/Menu"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Menu/CenterContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="PauseLabel" type="Label" parent="HUD/Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("17_u4mci")
+theme_override_fonts/font = SubResource("FontVariation_11avq")
+theme_override_font_sizes/font_size = 50
+text = "Pause Menu
+
+"
+horizontal_alignment = 1
+
+[node name="InventoryGrid" type="GridContainer" parent="HUD/Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 8
+
+[node name="Slot" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+item_data = SubResource("Resource_h7ev4")
+
+[node name="Slot2" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+item_data = SubResource("Resource_7nu3m")
+
+[node name="Slot3" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+item_data = SubResource("Resource_ccuaf")
+
+[node name="Slot4" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+item_data = SubResource("Resource_6ccrb")
+
+[node name="Slot5" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+item_data = SubResource("Resource_chumf")
+
+[node name="Slot6" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+item_data = SubResource("Resource_tyo33")
+
+[node name="Slot7" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Slot8" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="InventoryController" type="Node" parent="HUD/Menu/CenterContainer/VBoxContainer/InventoryGrid" node_paths=PackedStringArray("grid", "dragnode")]
+script = ExtResource("20_xyui6")
+grid = NodePath("..")
+dragnode = NodePath("../../../../DragSlot")
+
+[node name="SensitivityContainer" type="HBoxContainer" parent="HUD/Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SensitivityLabel" type="Label" parent="HUD/Menu/CenterContainer/VBoxContainer/SensitivityContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Sensitivity"
+
+[node name="SensitivitySlider" type="HSlider" parent="HUD/Menu/CenterContainer/VBoxContainer/SensitivityContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("21_omvvs")
+theme_override_icons/grabber_highlight = ExtResource("21_omvvs")
+theme_override_icons/grabber_disabled = ExtResource("21_omvvs")
+theme_override_icons/tick = ExtResource("21_omvvs")
+theme_override_styles/slider = SubResource("StyleBoxLine_xu6hc")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_yy6lf")
+min_value = -80.0
+max_value = 0.0
+value = -40.0
+rounded = true
+
+[node name="LineEdit" type="LineEdit" parent="HUD/Menu/CenterContainer/VBoxContainer/SensitivityContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme = ExtResource("17_u4mci")
+
+[node name="VolumeContainer" type="HBoxContainer" parent="HUD/Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VolumeLabel" type="Label" parent="HUD/Menu/CenterContainer/VBoxContainer/VolumeContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Master Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="HUD/Menu/CenterContainer/VBoxContainer/VolumeContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_icons/grabber = ExtResource("21_omvvs")
+theme_override_styles/slider = SubResource("StyleBoxLine_xu6hc")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_yy6lf")
+min_value = -80.0
+max_value = 0.0
+value = -40.0
+rounded = true
+
+[node name="MuteB" type="Button" parent="HUD/Menu/CenterContainer/VBoxContainer/VolumeContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme = ExtResource("17_u4mci")
+text = "Mute?"
+
+[node name="ExitB" type="Button" parent="HUD/Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("17_u4mci")
+text = "Exit?"
+
+[node name="DragSlot" parent="HUD/Menu" instance=ExtResource("18_l2ab7")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_left = 250.0
+offset_top = 583.0
+offset_right = 1030.0
+offset_bottom = 663.0
+script = null
+
+[connection signal="pressed" from="HUD/Menu/CenterContainer/VBoxContainer/VolumeContainer/MuteB" to="HUD" method="_on_mute_b_pressed"]
+[connection signal="pressed" from="HUD/Menu/CenterContainer/VBoxContainer/ExitB" to="HUD" method="_on_exit_b_pressed"]

@@ -16,6 +16,7 @@ func _ready():
 	if (sprite == null) or (text == null):
 		printerr("HUD TEXT or SPRITE NOT FOUND!")
 		return
+	text.text=str(stat_n)
 func _stop_start(sprite:Node):
 	if is_instance_valid(sprite) and sprite.has_method("play"):
 		sprite.play()

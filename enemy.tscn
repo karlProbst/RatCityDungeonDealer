@@ -1,8 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://ydacsau85yb0"]
 
 [ext_resource type="Texture2D" uid="uid://wcqvt17nlpda" path="res://icon.svg" id="1_7k104"]
-[ext_resource type="Script" uid="uid://daakv8d0bik8g" path="res://enemy.gd" id="1_epc7x"]
 [ext_resource type="SpriteFrames" uid="uid://djcatyw8q1lfd" path="res://cia_glowie_sprites.tres" id="3_e1ltt"]
+[ext_resource type="AudioStream" uid="uid://cxgml7qvq5dkf" path="res://Assets/wheum.mp3" id="8_hb8ge"]
 [ext_resource type="AudioStream" uid="uid://ynsde1h6xg4d" path="res://Assets/1step.mp3" id="12_ar8e5"]
 [ext_resource type="Script" uid="uid://w32m0ds7e11k" path="res://footsteps.gd" id="13_doop2"]
 [ext_resource type="AudioStream" uid="uid://b5mhqjkcxcfok" path="res://Assets/glowie_sounds/glowie_damage.mp3" id="20_o7rgc"]
@@ -21,14 +21,12 @@ radius = 1.0
 height = 3.98
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3yqyl"]
-radius = 1.28697
-height = 6.46509
+radius = 1.74716
+height = 12.3411
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wujgv"]
-radius = 2.74779
-height = 5.49559
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_7k104"]
+radius = 4.38858
+height = 9.15125
 
 [sub_resource type="Animation" id="Animation_epc7x"]
 resource_name = "Death"
@@ -82,8 +80,9 @@ _data = {
 &"RESET": SubResource("Animation_otto8")
 }
 
-[node name="Enemy" type="CharacterBody3D"]
-script = ExtResource("1_epc7x")
+[sub_resource type="SphereMesh" id="SphereMesh_wujgv"]
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 5.0
@@ -96,7 +95,7 @@ visible = false
 mesh = SubResource("CapsuleMesh_7xaro")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-0.578926, 0, 0.81538, 0, 1, 0, -0.81538, 0, -0.578926, 0, 3.24273, 0)
+transform = Transform3D(-0.578926, 0, 0.81538, 0, 1, 0, -0.81538, 0, -0.578926, -0.0435839, 6.1802, 0.189222)
 shape = SubResource("CapsuleShape3D_3yqyl")
 
 [node name="AttackHitbox" type="Area3D" parent="."]
@@ -105,12 +104,8 @@ collision_mask = 4
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox"]
-transform = Transform3D(-0.578926, 0, 0.81538, 0, 1, 0, -0.81538, 0, -0.578926, 0, 3.24273, 0)
+transform = Transform3D(-0.578926, 0, 0.81538, 0, 1, 0, -0.81538, 0, -0.578926, 0, 7.5989, 0)
 shape = SubResource("CapsuleShape3D_wujgv")
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendSpace1D_7k104")
-parameters/blend_position = 0
 
 [node name="Blink" type="AnimationPlayer" parent="."]
 libraries = {
@@ -118,21 +113,22 @@ libraries = {
 }
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(-5.54354, 0, -0.127253, 0, 5.545, 0, 0.127253, 0, -5.54354, -0.00332113, 3.1628, 0.0156491)
+transform = Transform3D(-10.9971, 0, -0.252439, 0, 11, 0, 0.252439, 0, -10.9971, -0.00332113, 6.05106, 0.0156491)
 gi_mode = 2
 billboard = 2
 shaded = true
 texture_filter = 0
 sprite_frames = ExtResource("3_e1ltt")
-animation = &"Attack"
-autoplay = "Suit"
+animation = &"Forward"
+autoplay = "Forward"
+frame_progress = 0.298607
 speed_scale = 0.77
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.270508, 6.04193, -0.271489)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.270508, 10.7248, -0.271489)
 light_color = Color(0, 1, 0.164706, 1)
 light_energy = 6.061
-omni_range = 5.209
+omni_range = 10.2031
 
 [node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("12_ar8e5")
@@ -151,6 +147,19 @@ pitch_scale = 1.08
 stream = ExtResource("21_kdav3")
 volume_db = 12.214
 max_db = 1.626
+
+[node name="AttackPoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.71039, -2.80552)
+visible = false
+mesh = SubResource("SphereMesh_wujgv")
+
+[node name="RayCast3D" type="RayCast3D" parent="AttackPoint"]
+target_position = Vector3(0, 0, -100)
+hit_from_inside = true
+
+[node name="AttackSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_hb8ge")
+volume_db = 7.352
 
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
 [connection signal="finished" from="DeathSound" to="." method="_on_death_sound_finished"]

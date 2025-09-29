@@ -1,0 +1,193 @@
+[gd_scene load_steps=24 format=3 uid="uid://b0ku3qgqra34f"]
+
+[ext_resource type="Script" uid="uid://t3imrtnro8rl" path="res://projectile.gd" id="1_37fel"]
+[ext_resource type="Texture2D" uid="uid://do2kqaemehvrj" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0000.png" id="2_5mj5f"]
+[ext_resource type="Script" uid="uid://ddcv76ifafm8" path="res://BloodEmitter.gd" id="2_8u1f3"]
+[ext_resource type="Texture2D" uid="uid://vdekrcquk1d7" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0001.png" id="3_8u1f3"]
+[ext_resource type="Texture2D" uid="uid://dwmvigj21j6ot" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0002.png" id="4_61yw1"]
+[ext_resource type="Texture2D" uid="uid://ccvqrxdhgrbrs" path="res://Assets/splash/splash/splash0000.png" id="5_61yw1"]
+[ext_resource type="Texture2D" uid="uid://ct13i4atycbgd" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0003.png" id="5_opmla"]
+[ext_resource type="Texture2D" uid="uid://cv6bvdavpgib5" path="res://Assets/splash/splash/splash0001.png" id="6_opmla"]
+[ext_resource type="Texture2D" uid="uid://d07pvxnqgs8l3" path="res://Assets/splash/splash/splash0002.png" id="7_o81wg"]
+[ext_resource type="Texture2D" uid="uid://bigoejvw2efwg" path="res://Assets/splash/splash/splash0003.png" id="8_yfdv7"]
+[ext_resource type="AudioStream" uid="uid://ddkspqe1fscib" path="res://Assets/projectile01.mp3" id="9_4vmr3"]
+[ext_resource type="AudioStream" uid="uid://deiejpfavs5n" path="res://Assets/zumm.mp3" id="12_8u1f3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o81wg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5mj5f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8u1f3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_61yw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_opmla")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xctjt"]
+radius = 0.461003
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37fel"]
+animations = [{
+"frames": [{
+"duration": 1.11,
+"texture": ExtResource("5_61yw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_opmla")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_o81wg")
+}, {
+"duration": 0.7,
+"texture": ExtResource("8_yfdv7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_h0pko"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:omni_range")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [41.816]
+}
+
+[sub_resource type="Animation" id="Animation_3dtq4"]
+resource_name = "lightFade"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:omni_range")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [20.0, 100.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7bwtv"]
+_data = {
+&"RESET": SubResource("Animation_h0pko"),
+&"lightFade": SubResource("Animation_3dtq4")
+}
+
+[sub_resource type="Gradient" id="Gradient_5mj5f"]
+offsets = PackedFloat32Array(0.00655738, 1)
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8u1f3"]
+gradient = SubResource("Gradient_5mj5f")
+fill = 1
+fill_from = Vector2(0.461538, 0.547009)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_61yw1"]
+transparency = 1
+shading_mode = 0
+specular_mode = 1
+albedo_texture = SubResource("GradientTexture2D_8u1f3")
+grow = true
+grow_amount = 0.12
+
+[sub_resource type="BoxMesh" id="BoxMesh_opmla"]
+material = SubResource("StandardMaterial3D_61yw1")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_o81wg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="ProjectileCrack" type="Area3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+priority = 1
+script = ExtResource("1_37fel")
+
+[node name="BloodManager" type="Node" parent="."]
+script = ExtResource("2_8u1f3")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1.81125, 0, 0, 0, 1.81125, 0, 0, 0, 1.81125, 0, 0, 0)
+modulate = Color(0, 1, 0, 1)
+billboard = 1
+shaded = true
+sprite_frames = SubResource("SpriteFrames_o81wg")
+autoplay = "default"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_xctjt")
+
+[node name="SplashSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_4vmr3")
+volume_db = 80.0
+max_db = 6.0
+pitch_scale = 1.92
+
+[node name="Splash" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0.00385845, 0)
+visible = false
+modulate = Color(0, 1, 0, 1)
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_37fel")
+frame = 3
+frame_progress = 1.0
+speed_scale = 1.6
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Splash"]
+light_color = Color(0, 1, 0, 1)
+light_energy = 64.0
+light_volumetric_fog_energy = 3.286
+omni_range = 41.816
+omni_shadow_mode = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Splash"]
+libraries = {
+&"": SubResource("AnimationLibrary_7bwtv")
+}
+
+[node name="Light" type="OmniLight3D" parent="."]
+light_color = Color(0, 1, 0, 1)
+light_energy = 2.8
+omni_attenuation = 2.0
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00547361, 0)
+gi_mode = 0
+amount = 10
+lifetime = 0.14
+fract_delta = false
+mesh = SubResource("BoxMesh_opmla")
+gravity = Vector3(0, 0, 0)
+scale_amount_curve = SubResource("Curve_o81wg")
+
+[node name="zoomingSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("12_8u1f3")
+volume_db = 0.8
+autoplay = true
+doppler_tracking = 1
+parameters/looping = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="Splash" to="." method="_on_splash_animation_finished"]
+[connection signal="animation_finished" from="Splash/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://kw3dpdbvgd10"]
+[gd_scene load_steps=26 format=3 uid="uid://kw3dpdbvgd10"]
 
 [ext_resource type="Script" uid="uid://c4wkjnsmey3rb" path="res://character_body_3d.gd" id="1_iwpo4"]
 [ext_resource type="Texture2D" uid="uid://d2mahrqcd4ns3" path="res://crack high alchimist/sprites/viewmodel/attack01/vm_attack01_0000.png" id="2_ew7rt"]
@@ -16,6 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://vdekrcquk1d7" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0001.png" id="14_klace"]
 [ext_resource type="Texture2D" uid="uid://dwmvigj21j6ot" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0002.png" id="15_pqkp8"]
 [ext_resource type="Texture2D" uid="uid://ct13i4atycbgd" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0003.png" id="16_w6sjo"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_m1lp5"]
+dof_blur_far_distance = 2.62
+dof_blur_far_transition = 8192.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_18j2g"]
 
@@ -42,16 +46,16 @@ animations = [{
 [sub_resource type="SpriteFrames" id="SpriteFrames_ew7rt"]
 animations = [{
 "frames": [{
-"duration": 0.2,
+"duration": 0.15,
 "texture": ExtResource("3_u3olo")
 }, {
-"duration": 1.0,
+"duration": 0.32,
 "texture": ExtResource("4_nvtkd")
 }, {
-"duration": 0.2,
+"duration": 0.15,
 "texture": ExtResource("5_gy32l")
 }, {
-"duration": 0.3,
+"duration": 0.25,
 "texture": ExtResource("5_gy32l")
 }, {
 "duration": 1.0,
@@ -102,8 +106,8 @@ cap_top = false
 cap_bottom = false
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j7yu6"]
-radius = 0.598514
-height = 3.48207
+radius = 0.935706
+height = 7.85609
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klace"]
 albedo_color = Color(1, 0, 0, 1)
@@ -133,8 +137,10 @@ omni_attenuation = 0.5
 omni_shadow_mode = 0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.90679, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1034, 0)
+attributes = SubResource("CameraAttributesPractical_m1lp5")
 fov = 105.0
+far = 1000.0
 
 [node name="MagicLight" type="OmniLight3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71658, -0.624537, -0.784678)
@@ -144,7 +150,7 @@ light_energy = 16.0
 omni_range = 1.2
 
 [node name="PontoDefogo" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(0.187898, 0, 0, 0, 0.187898, 0, 0, 0, 0.187898, 0.490873, -0.131182, -1.21954)
+transform = Transform3D(0.187898, 0, 0, 0, 0.187898, 0, 0, 0, 0.187898, 0.71361, -0.270408, -0.944333)
 visible = false
 mesh = SubResource("SphereMesh_18j2g")
 skeleton = NodePath("../..")
@@ -171,23 +177,20 @@ frame = 4
 frame_progress = 1.0
 speed_scale = 0.7
 
-[node name="LaserRay" type="RayCast3D" parent="Camera3D"]
+[node name="Laserray" type="RayCast3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0111101, 0)
 target_position = Vector3(5, 5, -500)
 collide_with_areas = true
 debug_shape_custom_color = Color(1, 0, 0, 1)
 
-[node name="Mesh" type="Node3D" parent="Camera3D/LaserRay"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0901866, 0)
-visible = false
+[node name="Mesh" type="Node3D" parent="Camera3D/Laserray"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/LaserRay/Mesh"]
-transform = Transform3D(0.0587014, 0, 0, 0, -2.81128e-08, 0.0587014, 0, -0.643146, -2.56592e-09, 0, 0, -0.582075)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/Laserray/Mesh"]
+transform = Transform3D(0.00344585, 0, 0, 0, -0.0377536, -1.80088e-09, 0, 1.97309e-08, -0.0377536, 0, 0.0560179, -0.582075)
 mesh = SubResource("CylinderMesh_klace")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/CharacterBody3D/LaserRay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73676, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.92026, 0)
 shape = SubResource("CapsuleShape3D_j7yu6")
 
 [node name="Footsteps" type="AudioStreamPlayer3D" parent="."]

@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://bmkunrbfkld0q"]
+
+[ext_resource type="Texture2D" uid="uid://b6rgyo6mr7x78" path="res://Assets/gibs/skull.png" id="1_2qqlj"]
+[ext_resource type="Script" uid="uid://bbmnk81rvn1eq" path="res://gibs_enemy.gd" id="1_3dpu3"]
+[ext_resource type="Texture2D" uid="uid://bbpej7by12d8c" path="res://Assets/gibs/bone.png" id="3_ho5p5"]
+[ext_resource type="Texture2D" uid="uid://ci0cm488m3cww" path="res://Assets/gibs/back_bone.png" id="4_qfp2v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bj5dm"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("3_ho5p5")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4542w"]
+material = SubResource("StandardMaterial3D_bj5dm")
+size = Vector2(2.5, 2.5)
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_20dg0"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("4_qfp2v")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_q77y6"]
+material = SubResource("StandardMaterial3D_20dg0")
+size = Vector2(5, 5)
+orientation = 2
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_3dpu3")
+
+[node name="Bones" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.68217, 0)
+lifetime = 3.0
+explosiveness = 0.97
+fixed_fps = 11
+fract_delta = false
+mesh = SubResource("PlaneMesh_4542w")
+emission_shape = 3
+emission_box_extents = Vector3(1.5, 4, 1.5)
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(1, 20, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 11.0
+angular_velocity_min = -500.0
+angular_velocity_max = 500.0
+
+[node name="Backbone" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.00854, 0)
+amount = 1
+lifetime = 3.0
+explosiveness = 1.0
+fixed_fps = 12
+fract_delta = false
+mesh = SubResource("PlaneMesh_q77y6")
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(1, 100, 1)
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+angular_velocity_min = -500.0
+angular_velocity_max = 500.0
+
+[node name="Area3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="Area3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+billboard = 2
+texture = ExtResource("1_2qqlj")
+
+[node name="RayCast3D" type="RayCast3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000398159, 0.408705, 0)
+collision_mask = 2
+
+[connection signal="finished" from="Bones" to="." method="_on_bones_finished"]

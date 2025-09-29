@@ -1,0 +1,7 @@
+[gd_resource type="BoxMesh" load_steps=2 format=3 uid="uid://cja248gxtioad"]
+
+[ext_resource type="Material" uid="uid://c1m6p2awax14p" path="res://bloodMaterial.tres" id="1_v3au5"]
+
+[resource]
+material = ExtResource("1_v3au5")
+size = Vector3(0.24, 0.24, 0.24)

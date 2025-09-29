@@ -1,0 +1,95 @@
+[gd_scene load_steps=8 format=3 uid="uid://csevp3ne8nhrm"]
+
+[ext_resource type="Script" uid="uid://l47a2retu8tq" path="res://slot.gd" id="1_otx1m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ik2dq"]
+bg_color = Color(0.6, 0.6, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 1, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_miv4b"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.151276, 0.151276, 0.151276, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tlcma"]
+gradient = SubResource("Gradient_miv4b")
+
+[sub_resource type="Gradient" id="Gradient_ik2dq"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.671296, 0.99537)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_otx1m"]
+gradient = SubResource("Gradient_ik2dq")
+width = 8
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_miv4b"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.47451, 0.407843, 0.615686, 1)
+corner_radius_top_left = 5
+corner_detail = 1
+anti_aliasing_size = 5.268
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_otx1m")
+
+[node name="Panel" type="Panel" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ik2dq")
+
+[node name="Background" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 79.0
+offset_bottom = 79.0
+texture = SubResource("GradientTexture1D_tlcma")
+expand_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 79.0
+offset_bottom = 79.0
+expand_mode = 2
+
+[node name="Bezel" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_right = 79.0
+offset_bottom = 79.0
+texture = SubResource("GradientTexture2D_otx1m")
+expand_mode = 2
+
+[node name="Highlight" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_miv4b")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 57.0
+offset_right = 79.0
+offset_bottom = 80.0
+text = "0"
+horizontal_alignment = 1

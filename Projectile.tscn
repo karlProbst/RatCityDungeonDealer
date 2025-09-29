@@ -1,19 +1,17 @@
-[gd_scene load_steps=27 format=3 uid="uid://c6blvvkx8yws4"]
+[gd_scene load_steps=24 format=3 uid="uid://c6blvvkx8yws4"]
 
 [ext_resource type="Texture2D" uid="uid://do2kqaemehvrj" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0000.png" id="1_3rnyv"]
 [ext_resource type="Script" uid="uid://t3imrtnro8rl" path="res://projectile.gd" id="1_dbogy"]
 [ext_resource type="Texture2D" uid="uid://vdekrcquk1d7" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0001.png" id="2_dbogy"]
 [ext_resource type="Texture2D" uid="uid://dwmvigj21j6ot" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0002.png" id="3_hhgla"]
 [ext_resource type="Texture2D" uid="uid://ct13i4atycbgd" path="res://crack high alchimist/sprites/projectile/energyball01/energyball0003.png" id="4_7rt88"]
-[ext_resource type="Texture2D" uid="uid://bhnjqdb8nwsyv" path="res://Assets/trail/quadro0000.png" id="6_7t7m1"]
-[ext_resource type="Texture2D" uid="uid://ssplvbccvo62" path="res://Assets/trail/quadro0001.png" id="7_5m0qq"]
-[ext_resource type="Texture2D" uid="uid://cav5ulp5p4fd0" path="res://Assets/trail/quadro0002.png" id="8_6qaup"]
-[ext_resource type="Texture2D" uid="uid://dyfcqmtftbeg1" path="res://Assets/trail/quadro0003.png" id="9_swf5k"]
 [ext_resource type="Texture2D" uid="uid://ccvqrxdhgrbrs" path="res://Assets/splash/splash/splash0000.png" id="10_vfdmr"]
 [ext_resource type="Texture2D" uid="uid://cv6bvdavpgib5" path="res://Assets/splash/splash/splash0001.png" id="11_3dtq4"]
 [ext_resource type="Texture2D" uid="uid://d07pvxnqgs8l3" path="res://Assets/splash/splash/splash0002.png" id="12_h0pko"]
+[ext_resource type="AudioStream" uid="uid://deiejpfavs5n" path="res://Assets/zumm.mp3" id="12_swf5k"]
 [ext_resource type="Texture2D" uid="uid://bigoejvw2efwg" path="res://Assets/splash/splash/splash0003.png" id="13_7bwtv"]
 [ext_resource type="AudioStream" uid="uid://ddkspqe1fscib" path="res://Assets/projectile01.mp3" id="14_3dtq4"]
+[ext_resource type="Script" uid="uid://ddcv76ifafm8" path="res://BloodEmitter.gd" id="15_h0pko"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8apua"]
 animations = [{
@@ -36,27 +34,6 @@ animations = [{
 }]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dbogy"]
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_vfdmr"]
-frames = 4
-speed_scale = 8.0
-frame_0/texture = ExtResource("6_7t7m1")
-frame_1/texture = ExtResource("7_5m0qq")
-frame_1/duration = 1.0
-frame_2/texture = ExtResource("8_6qaup")
-frame_2/duration = 1.0
-frame_3/texture = ExtResource("9_swf5k")
-frame_3/duration = 1.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3dtq4"]
-transparency = 1
-albedo_texture = SubResource("AnimatedTexture_vfdmr")
-billboard_mode = 1
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_h0pko"]
-material = SubResource("StandardMaterial3D_3dtq4")
-size = Vector2(1.5, 2)
-orientation = 2
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vfdmr"]
 animations = [{
@@ -105,7 +82,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.26),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [7.0, 42.0]
+"values": [40.0, 200.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7bwtv"]
@@ -114,30 +91,44 @@ _data = {
 &"lightFade": SubResource("Animation_3dtq4")
 }
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3dtq4"]
+[sub_resource type="Gradient" id="Gradient_h0pko"]
+offsets = PackedFloat32Array(0.00655738, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h0pko"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7bwtv"]
+gradient = SubResource("Gradient_h0pko")
+fill = 1
+fill_from = Vector2(0.461538, 0.547009)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7bwtv"]
+transparency = 1
 shading_mode = 0
 specular_mode = 1
-albedo_color = Color(0.805596, 0.950256, 0.998217, 1)
-albedo_texture = SubResource("NoiseTexture2D_3dtq4")
+albedo_color = Color(0.803922, 1, 1, 1)
+albedo_texture = SubResource("GradientTexture2D_7bwtv")
 grow = true
-grow_amount = 0.15
+grow_amount = 0.12
 
 [sub_resource type="BoxMesh" id="BoxMesh_3dtq4"]
-material = SubResource("StandardMaterial3D_h0pko")
-size = Vector3(0.12, 0.12, 0.12)
+material = SubResource("StandardMaterial3D_7bwtv")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="Curve" id="Curve_h0pko"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Projectile" type="Area3D"]
 priority = 1
 script = ExtResource("1_dbogy")
 
+[node name="BloodManager" type="Node" parent="."]
+script = ExtResource("15_h0pko")
+
 [node name="Light" type="OmniLight3D" parent="."]
-light_color = Color(0.576471, 0.568627, 1, 1)
-light_energy = 1.5
-omni_range = 4.095
-omni_attenuation = 4.68
-omni_shadow_mode = 0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.034852, 0)
+light_color = Color(0.275225, 0.646219, 1, 1)
+light_energy = 3.5
+omni_attenuation = 2.0
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1.81125, 0, 0, 0, 1.81125, 0, 0, 0, 1.81125, 0, 0, 0)
@@ -150,13 +141,6 @@ frame_progress = 0.589492
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_dbogy")
-
-[node name="Trail" type="CPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0153491, -1.22536, 0)
-amount = 1
-lifetime = 0.3
-mesh = SubResource("PlaneMesh_h0pko")
-gravity = Vector3(0, 0, 0)
 
 [node name="Splash" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
@@ -184,13 +168,27 @@ max_db = 6.0
 pitch_scale = 4.0
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="."]
-amount = 12
-lifetime = 0.45
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000546217, 0)
+amount = 10
+lifetime = 0.13
 fract_delta = false
 mesh = SubResource("BoxMesh_3dtq4")
-emission_shape = 1
-emission_sphere_radius = 0.3
 gravity = Vector3(0, 0, 0)
+scale_amount_curve = SubResource("Curve_h0pko")
+
+[node name="Laserray" type="RayCast3D" parent="."]
+visible = false
+target_position = Vector3(0, 0, -25)
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="zoomingSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("12_swf5k")
+volume_db = -12.588
+pitch_scale = 3.9
+autoplay = true
+doppler_tracking = 1
+parameters/looping = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
